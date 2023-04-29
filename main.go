@@ -16,7 +16,7 @@ URL: <input type="text" name="url">
 </html></body>
 `
 
-var store = NewURLStore()
+var store = NewURLStore("store.gob")
 
 func main() {
 	router := gin.Default()
@@ -40,6 +40,7 @@ func Add(c *gin.Context) {
 		c.Writer.WriteString(addForm)
 		return
 	}
+
 	key := store.Put(url)
 
 	c.Writer.WriteString(fmt.Sprintf("%s", key))
