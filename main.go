@@ -1,10 +1,15 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+)
+
+var (
+	dataFile = flag.String("file", "store.gob", "data store file name")
 )
 
 const addForm = `
@@ -19,6 +24,8 @@ URL: <input type="text" name="url">
 var store = NewURLStore("store.gob")
 
 func main() {
+	flag.Parse()
+	store = NewURLStore(*dataFile)
 	router := gin.Default()
 
 	// handleFunc for "/"  GET
